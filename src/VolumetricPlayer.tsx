@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import DracosisPlayer from "volumetric/src/decoder/Player";
-import DracosisPlayerWorker from "volumetric/src/decoder/workerFunction.ts?worker";
+import DracosisPlayer from "volumetric/web/decoder/Player";
+import DracosisPlayerWorker from "volumetric/web/decoder/workerFunction.ts?worker";
 import {
   PerspectiveCamera,
   Scene,
