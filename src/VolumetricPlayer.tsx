@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import DracosisPlayer from "volumetric/web/decoder/Player";
-import DracosisPlayerWorker from "volumetric/web/decoder/workerFunction.ts?worker";
+import DracosisPlayerWorker from "volumetric/web/decoder/workerFunction.js?worker";
 import {
   PerspectiveCamera,
   Scene,
@@ -16,9 +16,7 @@ const cameraVerticalOffset = 0.4;
 const cameraFov = 35;
 
 type VolumetricPlayerProps = {
-  manifestFilePath: string,
-  meshFilePath: string,
-  videoFilePath: string,
+  paths: Array<string>
   style: any
 }
 
@@ -38,7 +36,7 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
   const [isBuffering, setIsBuffering] = useState(false);
   const [bufferingProgress, setBufferingProgress] = useState(0);
   const videoReady = !!dracosisSequence;
-
+  
   useEffect(() => {
     const container = containerRef.current;
     if (!container) {
@@ -161,9 +159,7 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
       playerRef.current = new DracosisPlayer({
         scene: anchor,
         renderer,
-        manifestFilePath: props.manifestFilePath,
-        meshFilePath: props.meshFilePath,
-        videoFilePath: props.videoFilePath,
+        paths: props.paths,
         worker: new DracosisPlayerWorker(),
         autoplay: false,
         onMeshBuffering: (progress) => {
