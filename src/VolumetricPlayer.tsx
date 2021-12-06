@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import DracosisPlayer from "volumetric/web/decoder/Player";
-import DracosisPlayerWorker from "volumetric/web/decoder/workerFunction.js?worker";
+import DracosisPlayer from "volumetric/player";
 import {
   PerspectiveCamera,
   Scene,
@@ -160,10 +159,9 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
         scene: anchor,
         renderer,
         paths: props.paths,
-        worker: new DracosisPlayerWorker(),
         autoplay: false,
         onMeshBuffering: (progress) => {
-          console.warn('BUFFERING!!', progress);
+          console.warn('BUFFERING!!', progress, playerRef.current?.currentFrame);
           setBufferingProgress(Math.round(progress * 100));
           setIsBuffering(true);
         },

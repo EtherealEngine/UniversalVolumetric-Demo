@@ -3,12 +3,14 @@ import logo from './logo.svg'
 import './App.css'
 import VolumetricPlayer from "./VolumetricPlayer";
 
+console.log('import.meta.url', import.meta.url)
+
 function App() {
   const [playerVisible, setPlayerVisible] = useState(false)
   const paths = [
-    "http://172.160.10.156:3000/assets/brennan.drcs",
-    "http://172.160.10.156:3000/assets/liam_low.drcs",
-    "http://172.160.10.156:3000/assets/ohno_jugo_low.drcs"
+    "/sam_low_fuse.drcs",
+    "/liamlow.drcs",
+    // "/ohno_jugo_low.drcs"
   ]
   return (
     <div className="App">
