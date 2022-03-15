@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import DracosisPlayer from "volumetric/player";
+// import DracosisPlayer from "volumetric/player";
+import DracosisPlayer from "../UniversalVolumetric/web/player";
 import {
   PerspectiveCamera,
   Scene,
@@ -127,15 +128,9 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
     let renderNeedsUpdate = false;
     function render() {
       animationFrameId = requestAnimationFrame(render);
-      playerRef.current?.handleRender(() => {
-        renderNeedsUpdate = true;
-      });
       controls?.update();
 
-      if (renderNeedsUpdate) {
-        renderer.render(scene, camera);
-        renderNeedsUpdate = false;
-      }
+      renderer.render(scene, camera);
     }
 
     console.log('create new player');
@@ -159,7 +154,6 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
         scene: anchor,
         renderer,
         paths: props.paths,
-        autoplay: false,
         onMeshBuffering: (progress) => {
           console.warn('BUFFERING!!', progress, playerRef.current?.currentFrame);
           setBufferingProgress(Math.round(progress * 100));
@@ -169,6 +163,7 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
           setIsBuffering(false);
         }
       });
+      window.UVOLPlayer = playerRef.current
     }
 
     setDracosisSequence(playerRef.current);
