@@ -128,8 +128,8 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
     let renderNeedsUpdate = false;
     function render() {
       animationFrameId = requestAnimationFrame(render);
+      playerRef.current?.handleRender();
       controls?.update();
-
       renderer.render(scene, camera);
     }
 
@@ -163,8 +163,11 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
           setIsBuffering(false);
         }
       });
-      window.UVOLPlayer = playerRef.current
     }
+
+    //test purpose
+    //@ts-ignore
+    window.UVOLPlayer = playerRef.current
 
     setDracosisSequence(playerRef.current);
 
@@ -203,7 +206,6 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
 
   const playButton = playIsStarted ? null : <button onTouchEnd={() => startPlayer()} onClick={() => startPlayer()} className={"button player-play"}>{videoReady ? "Play" : "Loading..."}</button>;
   const bufferingIndication = playIsStarted && isBuffering ? <div className={"buffering-indication"}>Buffering...</div> : null;
-
   return <div className="volumetric__player" style={props.style} ref={containerRef}>
     {playButton}
     {bufferingIndication}
