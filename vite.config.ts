@@ -6,5 +6,8 @@ export default defineConfig({
   // plugins: [reactRefresh()],
   optimizeDeps: {
     exclude: ['volumetric']
+  },
+  server: {
+    fs: { allow: ['..'] }
   }
 })
