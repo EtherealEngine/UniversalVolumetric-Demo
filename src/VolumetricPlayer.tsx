@@ -35,6 +35,8 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
   const [playIsStarted, setPlayIsStarted] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const [bufferingProgress, setBufferingProgress] = useState(0);
+  const [bufferingTimestamp, setBufferingTimestamp] = useState(Date.now());
+  const [, setForceRerender] = useState(0);
   const videoReady = !!dracosisSequence;
   
   useEffect(() => {
@@ -158,6 +160,8 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
           console.warn('BUFFERING!!', progress, playerRef.current?.currentFrame);
           setBufferingProgress(Math.round(progress * 100));
           setIsBuffering(true);
+          setBufferingTimestamp(Date.now());
+          setTimeout(() => setForceRerender(Math.random()), 100);
         },
         onFrameShow: () => {
           setIsBuffering(false);
@@ -204,8 +208,10 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
     }
   }
 
+  const timeSincebufferingStarted = Date.now() - bufferingTimestamp;
+
   const playButton = playIsStarted ? null : <button onTouchEnd={() => startPlayer()} onClick={() => startPlayer()} className={"button player-play"}>{videoReady ? "Play" : "Loading..."}</button>;
-  const bufferingIndication = playIsStarted && isBuffering ? <div className={"buffering-indication"}>Buffering...</div> : null;
+  const bufferingIndication = playIsStarted && isBuffering && timeSincebufferingStarted > 80 ? <div className={"buffering-indication"}>Buffering...</div> : null;
   return <div className="volumetric__player" style={props.style} ref={containerRef}>
     {playButton}
     {bufferingIndication}
