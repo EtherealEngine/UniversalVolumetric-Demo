@@ -10,7 +10,7 @@
     "react-dom": "^17.0.0",
     "three": "^0.141.0",
     "three-stdlib": "^2.10.1",
-    "volumetric": "^0.6.4"
+    "@xrfoundation/volumetric": "^1.0.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
