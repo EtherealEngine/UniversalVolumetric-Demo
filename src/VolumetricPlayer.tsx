@@ -130,7 +130,7 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
     let renderNeedsUpdate = false;
     function render() {
       animationFrameId = requestAnimationFrame(render);
-      playerRef.current?.handleRender();
+      playerRef.current?.update();
       controls?.update();
       renderer.render(scene, camera);
     }
@@ -153,7 +153,6 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
 
     if (!playerRef.current) {
       playerRef.current = new DracosisPlayer({
-        scene: anchor,
         renderer,
         paths: props.paths,
         onMeshBuffering: (progress) => {
@@ -167,6 +166,7 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
           setIsBuffering(false);
         }
       });
+      scene.add(playerRef.current.mesh as any);
     }
 
     //test purpose
@@ -203,7 +203,7 @@ const VolumetricPlayer = (props:VolumetricPlayerProps) => {
 
   function startPlayer() {
     if (videoReady && dracosisSequence) {
-      dracosisSequence.play();
+      dracosisSequence.video.play();
       setPlayIsStarted(true);
     }
   }
