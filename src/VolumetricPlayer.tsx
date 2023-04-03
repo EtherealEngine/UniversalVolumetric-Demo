@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import DracosisPlayer from "@xrfoundation/volumetric/player";
-// import DracosisPlayer from "../UniversalVolumetric/web/player";
+import DracosisPlayer from "@etherealengine/volumetric/player";
+
 import {
   PerspectiveCamera,
   Scene,
