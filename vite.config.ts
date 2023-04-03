@@ -5,7 +5,7 @@ import reactRefresh from '@vitejs/plugin-react-refresh'
 export default defineConfig({
   // plugins: [reactRefresh()],
   optimizeDeps: {
-    exclude: ['volumetric']
+    exclude: ['@etherealengine/volumetric']
   },
   server: {
     fs: { allow: ['..'] }
